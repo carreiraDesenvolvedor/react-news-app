@@ -4,6 +4,13 @@ import { AuthForm } from '../../components/auth/form';
 import { EnumAuthRoutesPaths } from '../../routes/AuthRoutes';
 
 export const LoginPage: FC = (): ReactElement => {
+  const handleOnSubmitForm = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    e.preventDefault();
+    alert('onSumit');
+  };
+
   const handleFieldChange = (
     event: React.ChangeEvent<
       HTMLTextAreaElement | HTMLInputElement
@@ -34,6 +41,7 @@ export const LoginPage: FC = (): ReactElement => {
             onChange: handleFieldChange,
           },
         ]}
+        handleOnSubmitForm={handleOnSubmitForm}
       />
     </AuthLayout>
   );

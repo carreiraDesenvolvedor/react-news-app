@@ -8,12 +8,16 @@ import {
 
 interface IAuthForm extends IAuthFormHeader {
   form_fields: IAuthFormTextField[];
+  handleOnSubmitForm: (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => void;
 }
 
 export const AuthForm: FC<IAuthForm> = ({
   header_title,
   header_cta,
   form_fields,
+  handleOnSubmitForm,
 }): ReactElement => {
   return (
     <Box maxWidth="550px" width="100%" py={'100px'} px={3}>
@@ -38,6 +42,7 @@ export const AuthForm: FC<IAuthForm> = ({
             sx={{ mt: 3 }}
             type={'submit'}
             variant="contained"
+            onClick={handleOnSubmitForm}
           >
             Continue
           </Button>

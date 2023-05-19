@@ -4,6 +4,12 @@ import { AuthForm } from '../../components/auth/form';
 import { EnumAuthRoutesPaths } from '../../routes/AuthRoutes';
 
 export const RegisterPage: FC = (): ReactElement => {
+  const handleOnSubmitForm = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    e.preventDefault();
+    alert('onSumit');
+  };
   const handleFieldChange = (
     event: React.ChangeEvent<
       HTMLTextAreaElement | HTMLInputElement
@@ -14,6 +20,7 @@ export const RegisterPage: FC = (): ReactElement => {
   return (
     <AuthLayout>
       <AuthForm
+        handleOnSubmitForm={handleOnSubmitForm}
         header_title="Register"
         header_cta={{
           call: 'Already have an account?',
