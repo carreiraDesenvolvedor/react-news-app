@@ -1,4 +1,5 @@
-import { Box, Grid } from '@mui/material';
+import { Box, Unstable_Grid2 as Grid } from '@mui/material';
+
 import React, { FC, ReactElement } from 'react';
 import { AuthLayoutRightColumn } from './_right-column';
 import { AuthLayoutLeftColumn } from './_left-column';
@@ -13,18 +14,10 @@ export const AuthLayout: FC<IAuthLayout> = ({
   return (
     <Box
       component={'main'}
-      height={'100vh'}
-      sx={{
-        display: 'flex',
-        alignContent: 'center',
-      }}
+      minHeight={'100vh'}
+      display={'flex'}
     >
-      <Grid
-        alignContent={'center'}
-        alignItems={'center'}
-        container
-        display={'flex'}
-      >
+      <Grid container flex={'1 1 auto'}>
         <AuthLayoutLeftColumn>
           {children}
         </AuthLayoutLeftColumn>

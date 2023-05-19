@@ -1,24 +1,26 @@
-import { Box, Grid, Typography } from '@mui/material';
+import {
+  Box,
+  Unstable_Grid2 as Grid,
+  Typography,
+} from '@mui/material';
 import React, { FC, ReactElement } from 'react';
 
 export const AuthLayoutRightColumn: FC =
   (): ReactElement => {
     return (
       <Grid
-        item
         xs={12}
         lg={6}
         display={'flex'}
         justifyContent={'center'}
         alignItems={'center'}
-        height={'100%'}
         sx={{
           color: 'white',
           background:
             'radial-gradient(50% 50% at 50% 50%, #122647 0%, #090E23 100%)',
           '& img': {
             width: '100%',
-            maxWidth: '600px',
+            maxWidth: '400px',
           },
         }}
       >

@@ -1,6 +1,6 @@
 import React, { FC, ReactElement } from 'react';
 import { IAuthLayout } from '.';
-import { Grid } from '@mui/material';
+import { Unstable_Grid2 as Grid } from '@mui/material';
 
 export const AuthLayoutLeftColumn: FC<IAuthLayout> = ({
   children,
@@ -10,9 +10,7 @@ export const AuthLayoutLeftColumn: FC<IAuthLayout> = ({
       xs={12}
       lg={6}
       sx={{ background: 'background.paper' }}
-      item
       md={6}
-      height={'100vh'}
       display={'flex'}
       alignItems={'center'}
       justifyContent={'center'}
