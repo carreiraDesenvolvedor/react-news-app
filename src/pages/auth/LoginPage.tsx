@@ -1,6 +1,5 @@
-import { Box } from '@mui/material';
 import React, { FC, ReactElement } from 'react';
-import { AuthLayout } from '../../layouts/AuthLayout';
+import { AuthLayout } from '../../layouts/auth/';
 
 export const LoginPage: FC = (): ReactElement => {
   return (
