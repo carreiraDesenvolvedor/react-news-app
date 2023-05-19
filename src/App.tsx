@@ -1,13 +1,7 @@
-import React from 'react';
+import React, { FC, ReactElement } from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Hey, how you doing?! :)</h1>
-      </header>
-    </div>
-  );
-}
+const App: FC = (): ReactElement => {
+  return <h1>Hey, how you doing?! :)</h1>;
+};
 
 export default App;
