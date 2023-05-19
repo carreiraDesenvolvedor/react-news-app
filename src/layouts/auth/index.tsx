@@ -20,7 +20,6 @@ export const AuthLayout: FC<IAuthLayout> = ({
       }}
     >
       <Grid
-        sx={{ background: 'red' }}
         alignContent={'center'}
         alignItems={'center'}
         container

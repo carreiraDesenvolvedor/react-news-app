@@ -9,7 +9,7 @@ export const AuthLayoutLeftColumn: FC<IAuthLayout> = ({
     <Grid
       xs={12}
       lg={6}
-      sx={{ background: 'blue' }}
+      sx={{ background: 'background.paper' }}
       item
       md={6}
       height={'100vh'}
