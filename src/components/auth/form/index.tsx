@@ -46,24 +46,6 @@ export const AuthForm: FC<IAuthForm> = ({
           >
             Continue
           </Button>
-          <Alert
-            color="info"
-            severity="info"
-            sx={{ mt: 3 }}
-          >
-            <div>
-              If you wanna login as Admin, you can use{' '}
-              <b>@admin</b> and password <b>Password123!</b>
-            </div>
-          </Alert>
-          <Alert
-            color="info"
-            severity="info"
-            sx={{ mt: 3 }}
-          >
-            If you wanna login as User, you can use{' '}
-            <b>@user</b> and password <b>Password123!</b>
-          </Alert>
         </Stack>
       </form>
     </Box>
