@@ -1,7 +1,7 @@
 import { Link, Stack, Typography } from '@mui/material';
 import React, { FC, ReactElement } from 'react';
 
-export const AuthHeader: FC = (): ReactElement => {
+export const AuthFormHeader: FC = (): ReactElement => {
   return (
     <Stack spacing={1} sx={{ mb: 3 }}>
       <Typography variant="h4">Login</Typography>
