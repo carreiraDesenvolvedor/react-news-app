@@ -7,9 +7,11 @@ import {
 } from '@mui/material';
 import React, { FC, ReactElement } from 'react';
 import { AuthFormHeader, IAuthFormHeader } from './_header';
-import { EnumAuthRoutesPaths } from '../../../routes/AuthRoutes';
 
-interface IAuthForm extends IAuthFormHeader {}
+interface IAuthForm extends IAuthFormHeader {
+  //TODO - Should be removed in future
+  temp?: boolean;
+}
 
 export const AuthForm: FC<IAuthForm> = ({
   header_title,
