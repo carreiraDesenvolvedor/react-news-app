@@ -4,6 +4,13 @@ import { AuthForm } from '../../components/auth/form';
 import { EnumAuthRoutesPaths } from '../../routes/AuthRoutes';
 
 export const LoginPage: FC = (): ReactElement => {
+  const handleFieldChange = (
+    event: React.ChangeEvent<
+      HTMLTextAreaElement | HTMLInputElement
+    >,
+  ) => {
+    console.log(event.target.name, ' ', event.target.value);
+  };
   return (
     <AuthLayout>
       <AuthForm
@@ -13,6 +20,20 @@ export const LoginPage: FC = (): ReactElement => {
           link_text: 'Register',
           link_to: EnumAuthRoutesPaths.register,
         }}
+        form_fields={[
+          {
+            name: 'email',
+            label: 'E-mail',
+            type: 'email',
+            onChange: handleFieldChange,
+          },
+          {
+            name: 'password',
+            label: 'Password',
+            type: 'password',
+            onChange: handleFieldChange,
+          },
+        ]}
       />
     </AuthLayout>
   );
