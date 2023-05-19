@@ -3,13 +3,13 @@ import { ThemeProvider } from '@emotion/react';
 import React, { FC, ReactElement } from 'react';
 import { customTheme } from './theme/customTheme';
 import { CssBaseline } from '@mui/material';
-import { LoginPage } from './pages/auth/LoginPage';
+import { AppRoutes } from './routes';
 
 const App: FC = (): ReactElement => {
   return (
     <ThemeProvider theme={customTheme}>
       <CssBaseline />
-      <LoginPage />
+      <AppRoutes />
     </ThemeProvider>
   );
 };
