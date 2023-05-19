@@ -6,12 +6,21 @@ import {
   TextField,
 } from '@mui/material';
 import React, { FC, ReactElement } from 'react';
-import { AuthFormHeader } from './_header';
+import { AuthFormHeader, IAuthFormHeader } from './_header';
+import { EnumAuthRoutesPaths } from '../../../routes/AuthRoutes';
 
-export const AuthForm: FC = (): ReactElement => {
+interface IAuthForm extends IAuthFormHeader {}
+
+export const AuthForm: FC<IAuthForm> = ({
+  header_title,
+  header_cta,
+}): ReactElement => {
   return (
     <Box maxWidth="550px" width="100%" py={'100px'} px={3}>
-      <AuthFormHeader />
+      <AuthFormHeader
+        header_title={header_title}
+        header_cta={header_cta}
+      />
       <form noValidate>
         <Stack spacing={3}>
           <TextField
