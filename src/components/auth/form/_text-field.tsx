@@ -11,6 +11,7 @@ export interface IAuthFormTextField {
       HTMLTextAreaElement | HTMLInputElement
     >,
   ) => void;
+  required?: boolean;
 }
 
 export const AuthFormTextField: FC<IAuthFormTextField> = ({
@@ -19,6 +20,7 @@ export const AuthFormTextField: FC<IAuthFormTextField> = ({
   type,
   disabled,
   onChange,
+  required,
 }): ReactElement => {
   return (
     <TextField
@@ -28,6 +30,7 @@ export const AuthFormTextField: FC<IAuthFormTextField> = ({
       type={type}
       onChange={onChange}
       disabled={disabled}
+      required={required}
     />
   );
 };
