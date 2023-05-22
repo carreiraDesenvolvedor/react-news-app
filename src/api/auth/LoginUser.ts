@@ -4,10 +4,9 @@ import {
   sendApiMutationRequest,
 } from '../sendApiRequest';
 
-export interface IApiAuthRegisterUserPayload {
-  name: string;
-  email: string;
+export interface IApiAuthLoginUserPayload {
   password: string;
+  email: string;
 }
 
 interface Response {
@@ -15,18 +14,23 @@ interface Response {
     name: string;
     email: string;
     id: number;
+    created_at: Date;
+  };
+  authorization: {
+    token: string;
+    type: 'bearer';
   };
 }
 
-export const apiAuthRegisterUser = ({
+export const apiAuthLoginUser = ({
   onSuccess,
   onError,
 }: IApiResponse<Response>) => {
   return sendApiMutationRequest<
-    IApiAuthRegisterUserPayload,
+    IApiAuthLoginUserPayload,
     Response
   >({
-    path: 'auth/register',
+    path: 'auth/login',
     method: API_METHOD.POST,
     onSuccess,
     onError,

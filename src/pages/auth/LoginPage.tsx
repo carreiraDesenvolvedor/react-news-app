@@ -2,25 +2,61 @@ import React, { FC, ReactElement } from 'react';
 import { AuthLayout } from '../../layouts/auth/';
 import { AuthForm } from '../../components/auth/form';
 import { EnumAuthRoutesPaths } from '../../routes/AuthRoutes';
+import { IInnerAlert } from '../../components/inner-alert';
+import {
+  IApiAuthLoginUserPayload,
+  apiAuthLoginUser,
+} from '../../api/auth/LoginUser';
 
 export const LoginPage: FC = (): ReactElement => {
+  const [formState, setFormState] =
+    React.useState<IApiAuthLoginUserPayload>({
+      password: '',
+      email: '',
+    });
+  const [bottomAlerts, setBottomAlerts] = React.useState<
+    IInnerAlert[]
+  >([]);
+
   const handleOnSubmitForm = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     e.preventDefault();
-    alert('onSumit');
+    setBottomAlerts([]);
+    loginMutation.mutate(formState);
   };
 
-  const handleFieldChange = (
-    event: React.ChangeEvent<
-      HTMLTextAreaElement | HTMLInputElement
-    >,
-  ) => {
-    console.log(event.target.name, ' ', event.target.value);
+  const loginMutation = apiAuthLoginUser({
+    onSuccess: (response) => {
+      console.log('onSuccess');
+      console.log(response);
+    },
+    onError: (error) => {
+      const alerts: IInnerAlert[] = [];
+      Object.keys(error.data).map((key: string) => {
+        alerts.push({
+          color: 'error',
+          severity: 'error',
+          message: <div>{error.data[key]}</div>,
+        });
+      });
+      setBottomAlerts(alerts);
+    },
+  });
+
+  const handleFormChange = <
+    Property extends keyof IApiAuthLoginUserPayload,
+  >(
+    key: Property,
+    value: IApiAuthLoginUserPayload[Property],
+  ): void => {
+    setFormState({ ...formState, [key]: value });
   };
   return (
     <AuthLayout>
       <AuthForm
+        isLoading={loginMutation.isLoading}
+        inner_alerts={bottomAlerts}
         header_title="Login"
         header_cta={{
           call: "Don't have an account?",
@@ -32,13 +68,19 @@ export const LoginPage: FC = (): ReactElement => {
             name: 'email',
             label: 'E-mail',
             type: 'email',
-            onChange: handleFieldChange,
+            onChange: (e) => {
+              handleFormChange('email', e.target.value);
+            },
+            disabled: loginMutation.isLoading,
           },
           {
             name: 'password',
             label: 'Password',
             type: 'password',
-            onChange: handleFieldChange,
+            onChange: (e) => {
+              handleFormChange('password', e.target.value);
+            },
+            disabled: loginMutation.isLoading,
           },
         ]}
         handleOnSubmitForm={handleOnSubmitForm}

@@ -23,23 +23,6 @@ const buildInitRequestParm = (
   };
 };
 
-// export const sendApiRequest = async <T>(
-//   path: string,
-//   method: API_METHOD,
-//   data: T,
-// ): Promise<T> => {
-//   const response = await fetch(
-//     `${process.env.REACT_APP_API_URL}/${path}`,
-//     buildInitRequestParm(method, data),
-//   );
-
-//   if (!response.ok) {
-//     throw new Error(res);
-//   }
-
-//   return (await response.json()) as Promise<T>;
-// };
-
 export const makeRequest = <T>(
   path: string,
   method: API_METHOD,
@@ -58,7 +41,7 @@ export interface IApiResponse<ResponseSuccessInterface> {
   }) => void;
   onSuccess: (response: {
     data: ResponseSuccessInterface;
-    message: string;
+    message?: string;
   }) => void;
 }
 
