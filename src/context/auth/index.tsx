@@ -6,8 +6,8 @@ import React, {
   ReactNode,
   useState,
 } from 'react';
-import { EnumSessionRoutesPaths } from '../../routes/SessionRoutes';
 import { EnumAuthRoutesPaths } from '../../routes/enum/auth-routes-paths';
+import { EnumSessionRoutesPaths } from '../../routes/enum/session-routes-paths';
 
 export interface IAuthContextUser {
   name: string;

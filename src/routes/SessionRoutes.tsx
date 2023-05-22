@@ -1,10 +1,8 @@
 import React, { FC, ReactElement } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { RouteGuard } from '../utils/RouteGuard';
-
-export enum EnumSessionRoutesPaths {
-  home = '/home',
-}
+import { EnumSessionRoutesPaths } from './enum/session-routes-paths';
+import { HomePage } from '../pages/logged/HomePage';
 
 export const SessionRoutes: FC = (): ReactElement => {
   return (
@@ -12,11 +10,7 @@ export const SessionRoutes: FC = (): ReactElement => {
       <Route element={<RouteGuard />}>
         <Route
           path={EnumSessionRoutesPaths.home}
-          element={
-            <>
-              <h1>HOME BRO</h1>
-            </>
-          }
+          element={<HomePage />}
         />
       </Route>
     </Routes>

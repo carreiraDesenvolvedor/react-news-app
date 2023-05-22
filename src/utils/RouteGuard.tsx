@@ -6,7 +6,7 @@ import {
 } from 'react-router-dom';
 import { AuthContext, IAuthContext } from '../context/auth';
 import { EnumAuthRoutesPaths } from '../routes/enum/auth-routes-paths';
-import { EnumSessionRoutesPaths } from '../routes/SessionRoutes';
+import { EnumSessionRoutesPaths } from '../routes/enum/session-routes-paths';
 
 const NON_PROTECTED_ROUTES: string[] = [
   EnumAuthRoutesPaths.login,
