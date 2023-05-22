@@ -1,7 +1,7 @@
 import { Link, Stack, Typography } from '@mui/material';
 import React, { FC, ReactElement } from 'react';
-import { EnumAuthRoutesPaths } from '../../../routes/AuthRoutes';
 import { Link as LinkReactRouterDom } from 'react-router-dom';
+import { EnumAuthRoutesPaths } from '../../../routes/enum/auth-routes-paths';
 
 interface IAuthFormHeaderCTA {
   call: string;

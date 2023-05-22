@@ -1,7 +1,6 @@
 import React, { FC, ReactElement, useContext } from 'react';
 import { AuthLayout } from '../../layouts/auth';
 import { AuthForm } from '../../components/auth/form';
-import { EnumAuthRoutesPaths } from '../../routes/AuthRoutes';
 import {
   apiAuthRegisterUser,
   IApiAuthRegisterUserPayload,
@@ -11,6 +10,7 @@ import {
   AuthContext,
   IAuthContext,
 } from '../../context/auth';
+import { EnumAuthRoutesPaths } from '../../routes/enum/auth-routes-paths';
 
 export const RegisterPage: FC = (): ReactElement => {
   const { authenticateUser } = useContext(

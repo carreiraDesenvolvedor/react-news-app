@@ -1,7 +1,7 @@
 import React, { FC, ReactElement, useContext } from 'react';
 import { AuthLayout } from '../../layouts/auth/';
 import { AuthForm } from '../../components/auth/form';
-import { EnumAuthRoutesPaths } from '../../routes/AuthRoutes';
+import { EnumAuthRoutesPaths } from '../../routes/enum/auth-routes-paths';
 import { IInnerAlert } from '../../components/inner-alert';
 import {
   IApiAuthLoginUserPayload,
