@@ -10,14 +10,19 @@ import {
   ILoggedLayoutSidebarItem,
   LoggedLayoutSidebarItem,
 } from './_sidebar-item';
-import { SignalCellularAlt } from '@mui/icons-material';
+import { Home, Settings } from '@mui/icons-material';
 import { EnumSessionRoutesPaths } from '../../routes/enum/session-routes-paths';
 
 const sideNavItems: ILoggedLayoutSidebarItem[] = [
   {
-    title: 'Overview',
+    title: 'Home',
     path: EnumSessionRoutesPaths.home,
-    icon: <SignalCellularAlt />,
+    icon: <Home />,
+  },
+  {
+    title: 'Preferences',
+    path: EnumSessionRoutesPaths.preferences,
+    icon: <Settings />,
   },
 ];
 interface ILoggedLayoutSidebar {
