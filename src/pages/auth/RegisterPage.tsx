@@ -1,4 +1,4 @@
-import React, { FC, ReactElement } from 'react';
+import React, { FC, ReactElement, useContext } from 'react';
 import { AuthLayout } from '../../layouts/auth';
 import { AuthForm } from '../../components/auth/form';
 import { EnumAuthRoutesPaths } from '../../routes/AuthRoutes';
@@ -7,8 +7,16 @@ import {
   IApiAuthRegisterUserPayload,
 } from '../../api/auth/RegisterUser';
 import { IInnerAlert } from '../../components/inner-alert';
+import {
+  AuthContext,
+  IAuthContext,
+} from '../../context/auth';
 
 export const RegisterPage: FC = (): ReactElement => {
+  const { authenticateUser } = useContext(
+    AuthContext,
+  ) as IAuthContext;
+
   const [bottomAlerts, setBottomAlerts] = React.useState<
     IInnerAlert[]
   >([]);
@@ -19,9 +27,11 @@ export const RegisterPage: FC = (): ReactElement => {
       email: '',
     });
   const registerMutation = apiAuthRegisterUser({
-    onSuccess: (response) => {
-      console.log('onSuccess');
-      console.log(response);
+    onSuccess: ({ data }) => {
+      authenticateUser({
+        name: data.user.name,
+        authorization: data.authorization,
+      });
     },
     onError: (error) => {
       const alerts: IInnerAlert[] = [];

@@ -13,8 +13,10 @@ export interface IApiAuthRegisterUserPayload {
 interface Response {
   user: {
     name: string;
-    email: string;
-    id: number;
+  };
+  authorization: {
+    token: string;
+    type: 'bearer';
   };
 }
 

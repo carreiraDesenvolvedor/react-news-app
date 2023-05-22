@@ -1,4 +1,4 @@
-import React, { FC, ReactElement } from 'react';
+import React, { FC, ReactElement, useContext } from 'react';
 import { AuthLayout } from '../../layouts/auth/';
 import { AuthForm } from '../../components/auth/form';
 import { EnumAuthRoutesPaths } from '../../routes/AuthRoutes';
@@ -7,8 +7,16 @@ import {
   IApiAuthLoginUserPayload,
   apiAuthLoginUser,
 } from '../../api/auth/LoginUser';
+import {
+  AuthContext,
+  IAuthContext,
+} from '../../context/auth';
 
 export const LoginPage: FC = (): ReactElement => {
+  const { authenticateUser } = useContext(
+    AuthContext,
+  ) as IAuthContext;
+
   const [formState, setFormState] =
     React.useState<IApiAuthLoginUserPayload>({
       password: '',
@@ -27,9 +35,15 @@ export const LoginPage: FC = (): ReactElement => {
   };
 
   const loginMutation = apiAuthLoginUser({
-    onSuccess: (response) => {
+    onSuccess: ({ data }) => {
+      authenticateUser({
+        // id: data.user.id,
+        name: data.user.name,
+        // email: 'dsa',
+        authorization: data.authorization,
+      });
       console.log('onSuccess');
-      console.log(response);
+      console.log(data);
     },
     onError: (error) => {
       const alerts: IInnerAlert[] = [];

@@ -9,7 +9,7 @@ export interface IApiAuthLoginUserPayload {
   email: string;
 }
 
-interface Response {
+export interface IApiAuthLoginUserResponse {
   user: {
     name: string;
     email: string;
@@ -25,10 +25,10 @@ interface Response {
 export const apiAuthLoginUser = ({
   onSuccess,
   onError,
-}: IApiResponse<Response>) => {
+}: IApiResponse<IApiAuthLoginUserResponse>) => {
   return sendApiMutationRequest<
     IApiAuthLoginUserPayload,
-    Response
+    IApiAuthLoginUserResponse
   >({
     path: 'auth/login',
     method: API_METHOD.POST,
