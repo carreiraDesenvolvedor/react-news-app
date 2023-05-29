@@ -9,7 +9,9 @@
 </p>
 
 <p align="center">
+
 ![](https://github.com/carreiraDesenvolvedor/react-news-app/blob/main/public/assets/readme/demo-gif.gif)
+
 </p>
 
 ## 🛠️ Installation Steps
