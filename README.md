@@ -1,46 +1,170 @@
-# Getting Started with Create React App
+<h1 align="center">
+  News Feed App
+</h1>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 🚀 Demo
 
-## Available Scripts
+<p align="left">
+    <a href="" target="_blank"><b>Clique here to see a Live Demo</b></a>
+</p>
 
-In the project directory, you can run:
+<p align="center">
+![](./public/assets/readme/demo-gif.gif)
+</p>
 
-### `npm start`
+## 🛠️ Installation Steps
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. Clone the repository
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+```bash
+git clone https://github.com/carreiraDesenvolvedor/react-news-app
+```
 
-### `npm test`
+2. Change the working directory
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+cd react-news-app
+```
 
-### `npm run build`
+3. Install dependencies
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+npm install
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+4. Setup the .env file
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+ cp sample.env .env.local
+```
 
-### `npm run eject`
+5. Run the application
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```bash
+npm start
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+🌟 You are all set the App is running over the port 3000!
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## 💬️ How the APIs were used
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+<h4>How are requests to the API being made?</h4>
 
-## Learn More
+<p>
+    I created the sendApiRequest.ts file with the objective of encapsulating all the requests, making our code more reusable and safe as possible, working with Generics both for the Payload sending and for the response received from the API.
+</p>
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+<h4>The method that must be called to consume an API, receiving two generics: Payload and response(sendApiRequest.ts)</h4>
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
+export const sendApiMutationRequest = <
+  Payload,
+  ResponseSuccessInterface,
+>({
+  path,
+  method,
+  onSuccess,
+  onError,
+}: ISendApiMutationRequest<ResponseSuccessInterface>) => {
+  const navigate = useNavigate();
+  return useMutation(
+    (data: Payload) => {
+      return makeRequest(path, method, data);
+    },
+    {
+      onSuccess: async (data: Response) => {
+        const response = await data.json();
+        if (data.ok) {
+          onSuccess({
+            data: response.data as ResponseSuccessInterface,
+            message: response.message,
+          });
+        } else {
+          if (data.status == 401) {
+            navigate(
+              `${EnumAuthRoutesPaths.login.replace(
+                ':messages',
+                response.data.join(','),
+              )}}`,
+            );
+            return;
+          }
+          onError({
+            data: response.data,
+            message: response.message,
+            status: data.status,
+          });
+        }
+      },
+      onError: onError,
+    },
+  );
+};
+```
+
+<h4>Example of how this method is being used to request a Login. Below you can see how Generics should be reported, telling Typescript what we expect to send and receive(src/api/auth/login.ts)</h4>
+
+```
+export interface IApiAuthLoginUserPayload {
+  password: string;
+  email: string;
+}
+
+export interface IApiAuthLoginUserResponse {
+  user: {
+    name: string;
+    email: string;
+    id: number;
+    created_at: Date;
+  };
+  authorization: {
+    token: string;
+    type: 'bearer';
+  };
+}
+
+export const apiAuthLoginUser = ({
+  onSuccess,
+  onError,
+}: IApiResponse<IApiAuthLoginUserResponse>) => {
+  return sendApiMutationRequest<
+    IApiAuthLoginUserPayload,
+    IApiAuthLoginUserResponse
+  >({
+    path: ApiEndpoints.auth.login,
+    method: API_METHOD.POST,
+    onSuccess,
+    onError,
+  });
+};
+```
+
+<h4>Example of how this method is used in our component.</h4>
+```
+const loginMutation = apiAuthLoginUser({
+    onSuccess: ({ data }) => {
+      authenticateUser({
+        name: data.user.name,
+        authorization: data.authorization,
+      });
+    },
+    onError: (error) => {
+      ...
+    },
+  });
+```
+
+<h4>To make our code more organized I created the following structure, where we must create a file with the Payload, Response and method of each endpoint that we want to consume.</h4>
+<p align="center"><img src="./public/images/readme/structure.png" width="200" alt="Iphone Device" /></p>
+
+## 💻 Built with
+
+- [ReactJS](https://react.dev/)
+- [Tanstack](https://tanstack.com/query/v4/docs/react/overview): For Data Fetching
+- [React Joyride](https://react-joyride.com/): For the Tour
+- [MUI](https://mui.com/): For UI
+
+<hr>
+<p align="center">
+Developed by Jonathan Melo
+</p>

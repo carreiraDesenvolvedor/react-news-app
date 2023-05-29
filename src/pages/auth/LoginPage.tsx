@@ -37,9 +37,7 @@ export const LoginPage: FC = (): ReactElement => {
   const loginMutation = apiAuthLoginUser({
     onSuccess: ({ data }) => {
       authenticateUser({
-        // id: data.user.id,
         name: data.user.name,
-        // email: 'dsa',
         authorization: data.authorization,
       });
     },
