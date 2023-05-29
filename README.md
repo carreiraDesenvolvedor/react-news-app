@@ -5,7 +5,7 @@
 ## 🚀 Demo
 
 <p align="left">
-    <a href="" target="_blank"><b>Clique here to see a Live Demo</b></a>
+    <a href="https://carreiradesenvolvedor.github.io/react-news-app/" target="_blank"><b>Clique here to see a Live Demo</b></a>
 </p>
 
 <h4>Watch the GIF below :)</h4>
