@@ -4,6 +4,7 @@ import {
   Typography,
 } from '@mui/material';
 import React, { FC, ReactElement } from 'react';
+import NewsArt from '../../assets/images/news-art.png';
 
 export const AuthLayoutRightColumn: FC =
   (): ReactElement => {
@@ -52,7 +53,7 @@ export const AuthLayoutRightColumn: FC =
             A professional App to help you follow the most
             important News for you!
           </Typography>
-          <img alt="" src="/assets/auth/news-art.png" />
+          <img alt="" src={NewsArt} />
         </Box>
       </Grid>
     );
