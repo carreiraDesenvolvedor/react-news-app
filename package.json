@@ -1,8 +1,8 @@
 {
   "name": "react-news-app",
   "version": "0.1.0",
-  "private": true,
-  "homepage": "https://carreiraDesenvolvedor.github.io/react-news-app",
+  "private": false,
+  "homepage": "https://carreiraDesenvolvedor.github.io/react-app-news",
   "dependencies": {
     "@emotion/react": "^11.11.0",
     "@emotion/styled": "^11.11.0",

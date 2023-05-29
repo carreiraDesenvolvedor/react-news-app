@@ -1,4 +1,4 @@
 export enum EnumAuthRoutesPaths {
-  login = '/login',
+  login = '/',
   register = '/register',
 }
