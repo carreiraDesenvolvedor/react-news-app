@@ -8,6 +8,7 @@
     <a href="" target="_blank"><b>Clique here to see a Live Demo</b></a>
 </p>
 
+<h4>Watch the GIF below :)</h4>
 <p align="center">
 
 ![](https://github.com/carreiraDesenvolvedor/react-news-app/blob/main/public/assets/readme/demo-gif.gif)
