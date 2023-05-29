@@ -1,4 +1,4 @@
-import React, { FC, ReactNode, useCallback } from 'react';
+import React, { FC, ReactElement, ReactNode } from 'react';
 import {
   Button,
   Card,
@@ -8,43 +8,55 @@ import {
   Divider,
 } from '@mui/material';
 
-interface ICardForm {
-  header: {
+export interface ICardFormOnSubmit {
+  onFormSubmit: (
+    event: React.FormEvent<HTMLFormElement>,
+  ) => void;
+}
+
+export interface ICardForm extends ICardFormOnSubmit {
+  header?: {
     title: string;
     subheader?: string;
   };
   children: ReactNode | ReactNode[];
-  onFormSubmit: (
-    event: React.FormEvent<HTMLFormElement>,
-  ) => void;
+  submitButtonText?: string;
+  className?: string;
 }
 
 export const CardForm: FC<ICardForm> = ({
   header,
   children,
   onFormSubmit,
-}) => {
-  const handleSubmit = useCallback(
-    (event: React.FormEvent<HTMLFormElement>) => {
-      event.preventDefault();
-      onFormSubmit(event);
-    },
-    [],
-  );
+  submitButtonText,
+  className,
+}): ReactElement => {
+  const handleSubmit = (
+    event: React.FormEvent<HTMLFormElement>,
+  ) => onFormSubmit(event);
 
   return (
-    <form onSubmit={handleSubmit}>
-      <Card>
-        <CardHeader
-          subheader={header.subheader}
-          title={header.title}
-        />
-        <Divider />
+    <form className={className} onSubmit={handleSubmit}>
+      <Card sx={{ py: 2 }}>
+        {header?.title ||
+          (header?.subheader && (
+            <>
+              <CardHeader
+                subheader={header.subheader}
+                title={header.title}
+              />
+              <Divider />
+            </>
+          ))}
         <CardContent>{children}</CardContent>
         <Divider />
         <CardActions sx={{ justifyContent: 'flex-end' }}>
-          <Button type="submit" variant="contained">
-            Save
+          <Button
+            className="my-third-step"
+            type="submit"
+            variant="contained"
+          >
+            {submitButtonText ? submitButtonText : 'Save'}
           </Button>
         </CardActions>
       </Card>

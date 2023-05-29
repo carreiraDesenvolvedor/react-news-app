@@ -22,7 +22,6 @@ export const RouteGuard = () => {
   const { isUserLogged, logout } = useContext(
     AuthContext,
   ) as IAuthContext;
-
   if (isProtectedRoute() && !isUserLogged()) {
     logout();
     return null;

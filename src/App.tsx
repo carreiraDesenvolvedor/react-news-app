@@ -9,18 +9,15 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query';
 import AuthProvider from './context/auth';
-import { CookiesProvider } from 'react-cookie';
 
 const App: FC = (): ReactElement => {
   return (
     <QueryClientProvider client={new QueryClient()}>
       <ThemeProvider theme={customTheme}>
         <CssBaseline />
-        <CookiesProvider>
-          <AuthProvider>
-            <AppRoutes />
-          </AuthProvider>
-        </CookiesProvider>
+        <AuthProvider>
+          <AppRoutes />
+        </AuthProvider>
       </ThemeProvider>
     </QueryClientProvider>
   );

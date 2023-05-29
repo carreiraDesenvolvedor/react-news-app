@@ -1,7 +1,6 @@
-import { Menu, Notifications } from '@mui/icons-material';
+import { Logout, Menu } from '@mui/icons-material';
 import {
   Avatar,
-  Badge,
   Box,
   IconButton,
   Stack,
@@ -10,7 +9,11 @@ import {
   alpha,
   useMediaQuery,
 } from '@mui/material';
-import React, { FC, ReactElement } from 'react';
+import React, { FC, ReactElement, useContext } from 'react';
+import {
+  AuthContext,
+  IAuthContext,
+} from '../../context/auth';
 
 interface ILoggedLayoutTopNav {
   handleShowSidebar: (
@@ -24,6 +27,10 @@ export const LoggedLayoutTopNav: FC<
   const lgUp = useMediaQuery((theme: Theme) =>
     theme.breakpoints.up('lg'),
   );
+
+  const { user, logout } = useContext(
+    AuthContext,
+  ) as IAuthContext;
 
   return (
     <Box
@@ -66,17 +73,6 @@ export const LoggedLayoutTopNav: FC<
           direction={'row'}
           spacing={2}
         >
-          <Tooltip title="notifications">
-            <IconButton>
-              <Badge
-                badgeContent={4}
-                color="success"
-                variant="dot"
-              >
-                <Notifications fontSize="small" />
-              </Badge>
-            </IconButton>
-          </Tooltip>
           <Avatar
             sx={{
               cursor: 'pointer',
@@ -84,8 +80,13 @@ export const LoggedLayoutTopNav: FC<
               width: 40,
             }}
           >
-            JM
+            {user.name.substring(0, 2)}
           </Avatar>
+          <Tooltip title="Logout">
+            <IconButton onClick={() => logout()}>
+              <Logout />
+            </IconButton>
+          </Tooltip>
         </Stack>
       </Stack>
     </Box>

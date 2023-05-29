@@ -1,4 +1,8 @@
 import { useMutation } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
+import { EnumAuthRoutesPaths } from '../routes/enum/auth-routes-paths';
+import { ApiEndpoints } from './apiEndpoints';
+import { authCookie } from '../utils/cookie/authCookie';
 
 export enum API_METHOD {
   GET = 'GET',
@@ -7,10 +11,29 @@ export enum API_METHOD {
   DELETE = 'DELETE',
 }
 
+const getAuthorizationHeaders = (path: string): object => {
+  if (
+    [
+      ApiEndpoints.auth.login,
+      ApiEndpoints.auth.register,
+    ].includes(path)
+  ) {
+    return {};
+  }
+
+  const user = authCookie().retrieve();
+
+  return {
+    Authorization: `${user.authorization.type} ${user.authorization.token}`,
+  };
+};
+
 const buildInitRequestParm = (
   method: API_METHOD,
   data: unknown,
+  path: string,
 ): RequestInit => {
+  const authHeaders = getAuthorizationHeaders(path);
   return {
     method: method,
     body:
@@ -19,19 +42,40 @@ const buildInitRequestParm = (
         : null,
     headers: {
       'Content-Type': 'application/json',
+      Accept: 'application/json',
+      ...authHeaders,
     },
   };
+};
+
+const getURLSearchParams = <T>(data: T) => {
+  const keys = Object.keys(data as object) as Array<
+    keyof T
+  >;
+  const urlSearchParams = new URLSearchParams();
+  keys.map((key) => {
+    urlSearchParams.append(
+      key as string,
+      data[key] as string,
+    );
+  });
+  return urlSearchParams.toString();
 };
 
 export const makeRequest = <T>(
   path: string,
   method: API_METHOD,
   data: T,
-) =>
-  fetch(
-    `${process.env.REACT_APP_API_URL}/${path}`,
-    buildInitRequestParm(method, data),
+) => {
+  let URL = `${process.env.REACT_APP_API_URL}/${path}`;
+  if (method === API_METHOD.GET) {
+    URL += '?' + <T>getURLSearchParams(data);
+  }
+  return fetch(
+    URL,
+    buildInitRequestParm(method, data, path),
   );
+};
 
 export interface IApiResponse<ResponseSuccessInterface> {
   onError: (error: {
@@ -60,6 +104,7 @@ export const sendApiMutationRequest = <
   onSuccess,
   onError,
 }: ISendApiMutationRequest<ResponseSuccessInterface>) => {
+  const navigate = useNavigate();
   return useMutation(
     (data: Payload) => {
       return makeRequest(path, method, data);
@@ -73,6 +118,15 @@ export const sendApiMutationRequest = <
             message: response.message,
           });
         } else {
+          if (data.status == 401) {
+            navigate(
+              `${EnumAuthRoutesPaths.login.replace(
+                ':messages',
+                response.data.join(','),
+              )}}`,
+            );
+            return;
+          }
           onError({
             data: response.data,
             message: response.message,

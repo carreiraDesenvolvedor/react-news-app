@@ -12,14 +12,13 @@ import { EnumSessionRoutesPaths } from '../../routes/enum/session-routes-paths';
 export interface IAuthContextUser {
   name: string;
   authorization: {
-    type: 'bearer' | null;
+    type: 'bearer';
     token: string;
   };
 }
 
 export type IAuthContext = {
   user: IAuthContextUser;
-  getUserInfo: () => IAuthContextUser;
   authenticateUser: (userInfo: IAuthContextUser) => void;
   logout: () => void;
   isUserLogged: () => boolean;
@@ -36,7 +35,7 @@ const emptyUser: IAuthContextUser = {
   name: '',
   authorization: {
     token: '',
-    type: null,
+    type: 'bearer',
   },
 };
 
@@ -49,12 +48,9 @@ const AuthProvider: FC<Props> = ({ children }) => {
 
   const isUserLogged = (): boolean => {
     return (typeof user.name === 'string' &&
-      typeof user.authorization.token ===
-        'string') as boolean;
-  };
-
-  const getUserInfo = () => {
-    return user;
+      user.name.length &&
+      typeof user.authorization.token === 'string' &&
+      user.authorization.token.length) as boolean;
   };
 
   const authenticateUser = (data: IAuthContextUser) => {
@@ -77,7 +73,6 @@ const AuthProvider: FC<Props> = ({ children }) => {
     <AuthContext.Provider
       value={{
         user,
-        getUserInfo,
         authenticateUser,
         logout,
         isUserLogged,

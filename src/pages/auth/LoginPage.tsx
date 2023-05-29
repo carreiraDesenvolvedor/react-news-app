@@ -6,7 +6,7 @@ import { IInnerAlert } from '../../components/inner-alert';
 import {
   IApiAuthLoginUserPayload,
   apiAuthLoginUser,
-} from '../../api/auth/LoginUser';
+} from '../../api/auth/login';
 import {
   AuthContext,
   IAuthContext,
@@ -42,8 +42,6 @@ export const LoginPage: FC = (): ReactElement => {
         // email: 'dsa',
         authorization: data.authorization,
       });
-      console.log('onSuccess');
-      console.log(data);
     },
     onError: (error) => {
       const alerts: IInnerAlert[] = [];

@@ -1,3 +1,4 @@
+import { ApiEndpoints } from '../apiEndpoints';
 import {
   API_METHOD,
   IApiResponse,
@@ -30,7 +31,7 @@ export const apiAuthLoginUser = ({
     IApiAuthLoginUserPayload,
     IApiAuthLoginUserResponse
   >({
-    path: 'auth/login',
+    path: ApiEndpoints.auth.login,
     method: API_METHOD.POST,
     onSuccess,
     onError,

@@ -1,3 +1,4 @@
+import { ApiEndpoints } from '../apiEndpoints';
 import {
   API_METHOD,
   IApiResponse,
@@ -28,7 +29,7 @@ export const apiAuthRegisterUser = ({
     IApiAuthRegisterUserPayload,
     Response
   >({
-    path: 'auth/register',
+    path: ApiEndpoints.auth.register,
     method: API_METHOD.POST,
     onSuccess,
     onError,

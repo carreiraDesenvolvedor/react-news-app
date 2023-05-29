@@ -4,7 +4,7 @@ import { AuthForm } from '../../components/auth/form';
 import {
   apiAuthRegisterUser,
   IApiAuthRegisterUserPayload,
-} from '../../api/auth/RegisterUser';
+} from '../../api/auth/register';
 import { IInnerAlert } from '../../components/inner-alert';
 import {
   AuthContext,

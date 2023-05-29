@@ -10,7 +10,7 @@ import {
   ILoggedLayoutSidebarItem,
   LoggedLayoutSidebarItem,
 } from './_sidebar-item';
-import { Home, Settings } from '@mui/icons-material';
+import { Home } from '@mui/icons-material';
 import { EnumSessionRoutesPaths } from '../../routes/enum/session-routes-paths';
 
 const sideNavItems: ILoggedLayoutSidebarItem[] = [
@@ -18,11 +18,6 @@ const sideNavItems: ILoggedLayoutSidebarItem[] = [
     title: 'Home',
     path: EnumSessionRoutesPaths.home,
     icon: <Home />,
-  },
-  {
-    title: 'Preferences',
-    path: EnumSessionRoutesPaths.preferences,
-    icon: <Settings />,
   },
 ];
 interface ILoggedLayoutSidebar {

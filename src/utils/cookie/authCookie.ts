@@ -1,38 +1,32 @@
-import { useCookies } from 'react-cookie';
+import Cookies from 'js-cookie';
 import { IAuthContextUser } from '../../context/auth';
 
 export const authCookie = () => {
-  const [cookies, setCookie, removeCookie] = useCookies([
-    'token',
-    'token-type',
-    'user-name',
-  ]);
-
   const retrieve = (): IAuthContextUser => {
     return {
-      name: cookies['user-name'] as string,
+      name: Cookies.get('user-name') as string,
       authorization: {
-        type: cookies['token-type'],
-        token: cookies['token'] as string,
+        type: Cookies.get('token-type') as 'bearer',
+        token: Cookies.get('token') as string,
       },
     };
   };
   const store = (user: IAuthContextUser): void => {
-    setCookie('token', user.authorization.token, {
+    Cookies.set('token', user.authorization.token, {
       path: '/',
     });
-    setCookie('token-type', user.authorization.type, {
+    Cookies.set('token-type', user.authorization.type, {
       path: '/',
     });
-    setCookie('user-name', user.name, {
+    Cookies.set('user-name', user.name, {
       path: '/',
     });
   };
 
   const remove = () => {
-    removeCookie('token');
-    removeCookie('token-type');
-    removeCookie('user-name');
+    Cookies.remove('token');
+    Cookies.remove('token-type');
+    Cookies.remove('user-name');
   };
 
   return {
